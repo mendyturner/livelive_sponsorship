@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Corporate Sponsorship | liveLIVE Foundation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Partner with liveLIVE Foundation to support single-parent families and veterans through high-impact corporate sponsorship tiers that strengthen ESG, company culture, and employee engagement."
+  />
+
+  <style>
+    :root {
+      --red: #e3222a;
+      --dark-red: #b0171e;
+      --black: #111111;
+      --white: #ffffff;
+      --cream: #fdf7f3;
+      --aqua: #23b7d9;
+      --gold: #d9a441;
+      --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.12);
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      background: radial-gradient(circle at top, #fff8f3 0, #f5f5f5 45%, #ececec 100%);
+      color: var(--black);
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .page { min-height: 100vh; display: flex; flex-direction: column; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-left { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-logo { width: 72px; height: auto; }
+    .nav-title {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .nav-sub { font-size: 0.8rem; color: #555; }
+    .nav-cta { display: flex; align-items: center; gap: 0.75rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.6rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease, color 0.08s ease;
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--red), var(--dark-red));
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, var(--dark-red), var(--red));
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      box-shadow: none;
+      color: #333;
+    }
+    .btn-ghost:hover { background: rgba(0, 0, 0, 0.04); }
+
+    main { flex: 1; }
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 2.25rem;
+      padding-top: 2rem;
+      padding-bottom: 2.75rem;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(227, 34, 42, 0.06);
+      border: 1px solid rgba(227, 34, 42, 0.3);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: var(--dark-red);
+      margin-bottom: 0.85rem;
+    }
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw + 1.4rem, 3.1rem);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 0.9rem;
+    }
+    .hero-title span.highlight { color: var(--red); }
+    .hero-subtitle {
+      font-size: 1.02rem;
+      color: #444;
+      margin-bottom: 1.4rem;
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.6rem;
+    }
+    .stat-pill {
+      background: var(--black);
+      color: var(--white);
+      padding: 0.65rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .hero-note {
+      font-size: 0.85rem;
+      color: #555;
+      max-width: 420px;
+    }
+
+    .hero-right {
+      background: radial-gradient(circle at top left, #ffe8e8 0, #fef7f0 55%, #ffffff 100%);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 1.6rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+    .holiday-accent {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,0.7) 0, transparent 50%),
+        radial-gradient(circle at 90% 90%, rgba(255,0,0,0.06) 0, transparent 55%);
+    }
+    .hero-card-inner { position: relative; z-index: 1; }
+    .hero-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .tier-list { list-style: none; font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .tier-list li {
+      margin-bottom: 0.45rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+    .impact-bullet {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+      margin-top: 0.35rem;
+      flex-shrink: 0;
+    }
+    .mini-guarantee {
+      font-size: 0.82rem;
+      color: #444;
+      padding: 0.6rem 0.9rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px dashed rgba(0, 0, 0, 0.1);
+    }
+    .mini-guarantee span { font-weight: 700; color: var(--dark-red); }
+
+    /* TIER CARDS */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.4rem;
+      margin-top: 1.6rem;
+    }
+    .card {
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem 1.25rem 1.35rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.85), transparent 55%);
+      opacity: 0.9;
+    }
+    .card-inner { position: relative; z-index: 1; }
+    .card-title { font-weight: 800; margin-bottom: 0.4rem; font-size: 1rem; }
+    .card-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: var(--dark-red);
+      margin-bottom: 0.35rem;
+    }
+    .tier-amount { font-size: 0.9rem; font-weight: 600; color: #444; margin-bottom: 0.4rem; }
+    .card ul { list-style: none; font-size: 0.9rem; margin-top: 0.4rem; }
+    .card ul li { margin-bottom: 0.35rem; }
+
+    .strip-esg {
+      margin-top: 1.75rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #b0171e, #e03c3c, #d9a441);
+      color: var(--white);
+      padding: 1rem 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.95rem;
+    }
+    .strip-esg strong { font-weight: 700; }
+
+    /* ESG / CULTURE SECTION */
+    .esg-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 2fr);
+      gap: 1.8rem;
+      align-items: start;
+    }
+    .badge-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #666;
+      margin-bottom: 0.3rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 0.25rem 0.8rem;
+      font-size: 0.78rem;
+      background: rgba(0, 0, 0, 0.04);
+      margin-right: 0.35rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.3rem;
+      margin-top: 1.3rem;
+    }
+    .faq-item {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.1rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+    }
+    .faq-item h3 { font-size: 0.95rem; margin-bottom: 0.35rem; }
+
+    /* FORM / COMMITMENT */
+    .commitment-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 2fr);
+      gap: 1.8rem;
+      align-items: start;
+    }
+    .panel {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 1.6rem;
+      box-shadow: var(--shadow-soft);
+    }
+    form {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 0.6rem;
+    }
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+    }
+    input, select, textarea {
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      padding: 0.55rem 0.9rem;
+      font-size: 0.9rem;
+      width: 100%;
+      outline: none;
+      resize: vertical;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 2px rgba(227, 34, 42, 0.1);
+    }
+    .helper { font-size: 0.8rem; color: #666; }
+
+    footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      background: #101010;
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 2.25rem;
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-inner p {
+      font-size: 0.9rem;
+      max-width: 560px;
+      color: rgba(255, 255, 255, 0.78);
+    }
+    .footer-meta {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    @media (max-width: 840px) {
+      .hero,
+      .esg-grid,
+      .commitment-section { grid-template-columns: minmax(0, 1fr); }
+      .hero-right { order: -1; }
+    }
+    @media (max-width: 600px) {
+      .nav { padding-inline: 0.9rem; }
+      .hero { padding-top: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAV -->
+  <header>
+    <div class="nav">
+      <div class="nav-left">
+        <img src="logo.png" alt="liveLIVE Foundation logo" class="nav-logo" />
+        <div>
+          <div class="nav-title">Corporate Sponsorship</div>
+          <div class="nav-sub">Partnering for families, veterans, and community impact</div>
+        </div>
+      </div>
+      <div class="nav-cta">
+        <a href="#partner" class="btn btn-primary">Become a Sponsor</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="section hero" aria-labelledby="hero-title">
+      <div>
+        <div class="hero-badge">
+          ESG · Culture · Community Impact
+        </div>
+        <h1 class="hero-title" id="hero-title">
+          Turn your <span class="highlight">ESG and culture goals</span> into real stability for
+          single-parent families and veterans.
+        </h1>
+        <p class="hero-subtitle">
+          liveLIVE Foundation is a 501(c)(3) nonprofit that moves support quickly to households on
+          the edge of crisis. Through Platinum, Gold, Silver, and Community sponsorship tiers,
+          your organization can strengthen the “S” in ESG, deepen employee engagement, and create
+          visible local impact.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-pill">Single-Parent Families</div>
+          <div class="stat-pill">Veterans & Their Families</div>
+          <div class="stat-pill">Immediate Relief · Real Outcomes</div>
+        </div>
+
+        <div class="hero-ctas">
+          <a href="#tiers" class="btn btn-primary">View Sponsorship Tiers</a>
+          <a href="#partner" class="btn btn-ghost">Commit Your Sponsorship</a>
+        </div>
+
+        <p class="hero-note">
+          This is not just a logo exercise. It’s a way for your organization to stand between
+          families and crisis—while building a culture employees are proud to represent.
+        </p>
+      </div>
+
+      <aside class="hero-right" aria-label="Why companies partner">
+        <div class="holiday-accent"></div>
+        <div class="hero-card-inner">
+          <h2 class="hero-card-title">Why companies say “yes” to liveLIVE</h2>
+          <ul class="tier-list">
+            <li>
+              <span class="impact-bullet"></span>
+              <span><strong>Clear ESG alignment:</strong> direct impact on the Social pillar.</span>
+            </li>
+            <li>
+              <span class="impact-bullet"></span>
+              <span><strong>Local, visible results:</strong> families and veterans in your own backyard.</span>
+            </li>
+            <li>
+              <span class="impact-bullet"></span>
+              <span><strong>High efficiency:</strong> 98% of Giving Tuesday campaign dollars go directly to families.</span>
+            </li>
+            <li>
+              <span class="impact-bullet"></span>
+              <span><strong>Employee engagement:</strong> curated volunteer days and recognition for your team.</span>
+            </li>
+          </ul>
+          <div class="mini-guarantee">
+            <span>501(c)(3) certified:</span> liveLIVE Foundation is a registered nonprofit.
+            Sponsorships are tax-deductible to the extent allowed by law, and you receive
+            documentation and an invoice for your records.
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- TIERS -->
+    <section class="section" id="tiers">
+      <h2>Corporate Sponsorship Tiers</h2>
+      <p>
+        Whether you’re a fast-growing startup or an established enterprise, there is a sponsorship
+        level designed to align with your ESG strategy, budget, and culture goals. All tiers support
+        rapid-response aid for single-parent families and veterans.
+      </p>
+
+      <div class="tiers-grid">
+        <!-- Platinum -->
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-tag">Premier Level</div>
+            <h3 class="card-title">Platinum Partner</h3>
+            <div class="tier-amount">$25,000+ annual commitment</div>
+            <ul>
+              <li>Premier logo placement on liveLIVE website and donor communications</li>
+              <li>Branding in all major campaigns and email outreach</li>
+              <li>Keynote or featured speaking role at annual events</li>
+              <li>VIP volunteer day curated for your employees</li>
+              <li>Full-page corporate spotlight in impact report</li>
+              <li>Customized ESG impact summary for your disclosures</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Gold -->
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-tag">Leadership Level</div>
+            <h3 class="card-title">Gold Partner</h3>
+            <div class="tier-amount">$10,000+ annual commitment</div>
+            <ul>
+              <li>Featured logo placement on sponsor page</li>
+              <li>Inclusion in newsletters and select campaigns</li>
+              <li>Co-branded social media announcements</li>
+              <li>Invitation to community volunteer events</li>
+              <li>Highlighted as a leadership partner at events</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Silver -->
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-tag">Supporter Level</div>
+            <h3 class="card-title">Silver Partner</h3>
+            <div class="tier-amount">$5,000+ annual commitment</div>
+            <ul>
+              <li>Logo listed on sponsor and donor page</li>
+              <li>Recognition in seasonal campaigns</li>
+              <li>Invites to select volunteer opportunities</li>
+              <li>Digital partnership badge for your website</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Community -->
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-tag">Community Level</div>
+            <h3 class="card-title">Community Partner</h3>
+            <div class="tier-amount">$2,500+ annual commitment</div>
+            <ul>
+              <li>Name listed on liveLIVE donor page</li>
+              <li>Social media welcome announcement</li>
+              <li>Community Partner badge to share with staff and customers</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="strip-esg">
+        <span>
+          <strong>Every tier unlocks real outcomes:</strong> fewer evictions, more meals on the
+          table, stable transportation, and emergency relief for single parents and veterans.
+        </span>
+        <a href="#partner" class="btn btn-primary">Commit Your Sponsorship</a>
+      </div>
+    </section>
+
+    <!-- ESG + CULTURE -->
+    <section class="section" id="esg">
+      <div class="esg-grid">
+        <div>
+          <h2>ESG Impact, Company Culture, and Community in One Partnership</h2>
+          <p>
+            Sponsorship with liveLIVE brings ESG, HR, and CSR priorities under one roof. You’re not
+            just writing a check—you’re building a story your employees, customers, and investors
+            can stand behind.
+          </p>
+          <div style="margin-top: 0.8rem;">
+            <div class="badge-label">ESG outcomes</div>
+            <span class="pill">Social pillar impact</span>
+            <span class="pill">Transparent reporting</span>
+            <span class="pill">Ethical governance</span>
+          </div>
+          <div style="margin-top: 0.5rem;">
+            <div class="badge-label">Culture & HR outcomes</div>
+            <span class="pill">Employee pride & engagement</span>
+            <span class="pill">Volunteer experiences</span>
+            <span class="pill">Cross-team connection</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-grid">
+            <article class="faq-item">
+              <h3>ESG & CSR Reporting</h3>
+              <p>
+                We provide annual and campaign-specific summaries that quantify families supported,
+                funds deployed, and focus areas (housing, food, transportation, veterans). These can
+                be integrated into ESG/CSR reports and board materials.
+              </p>
+            </article>
+
+            <article class="faq-item">
+              <h3>Volunteerism & Team Engagement</h3>
+              <p>
+                We design volunteer opportunities that match your team’s size and schedule, from
+                on-site events to coordinated drives and virtual initiatives. Your employees see and
+                feel the impact they’re creating.
+              </p>
+            </article>
+
+            <article class="faq-item">
+              <h3>Brand & Reputation</h3>
+              <p>
+                Public alignment with liveLIVE shows that your organization is serious about
+                stabilizing families and honoring veterans. It’s not performative—it’s practical,
+                fast, and grounded in real community needs.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNER / COMMITMENT + INVOICE -->
+    <section class="section" id="partner">
+      <div class="commitment-section">
+        <!-- FORM -->
+        <div class="panel">
+          <h2>Commit Your Corporate Sponsorship</h2>
+          <p>
+            Share a few details below and we’ll follow up within one business day with a
+            confirmation, <strong>generated invoice</strong>, and next steps for recognition and
+            employee engagement. No payment is processed on this form.
+          </p>
+
+          <!-- Replace action with your Make.com webhook URL -->
+          <form
+            action="https://hook.make.com/YOUR_WEBHOOK_ID_FOR_CORPORATE_SPONSORS"
+            method="POST"
+          >
+            <input type="hidden" name="source" value="CorporateSponsorshipLandingPage" />
+
+            <div>
+              <label for="company">Company Name</label>
+              <input id="company" name="company" type="text" required />
+            </div>
+
+            <div>
+              <label for="contact">Primary Contact Name</label>
+              <input id="contact" name="contact" type="text" required />
+            </div>
+
+            <div>
+              <label for="email">Contact Email</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+
+            <div>
+              <label for="role">Role / Department</label>
+              <input id="role" name="role" type="text" placeholder="HR, CSR, ESG, C-Suite, etc." />
+            </div>
+
+            <div>
+              <label for="tier">Requested Sponsorship Tier</label>
+              <select id="tier" name="tier" required>
+                <option value="">Select a tier</option>
+                <option value="Platinum">Platinum Partner ($25,000+)</option>
+                <option value="Gold">Gold Partner ($10,000+)</option>
+                <option value="Silver">Silver Partner ($5,000+)</option>
+                <option value="Community">Community Partner ($2,500+)</option>
+                <option value="Custom">Custom / Other Amount</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="amount">Estimated Annual Sponsorship Amount (USD)</label>
+              <input id="amount" name="amount" type="number" min="2500" step="100" />
+              <div class="helper">
+                This helps us prepare your invoice. Final amount can be confirmed during follow-up.
+              </div>
+            </div>
+
+            <div>
+              <label for="notes">Notes or Focus Areas (optional)</label>
+              <textarea
+                id="notes"
+                name="notes"
+                rows="3"
+                placeholder="Share any specific goals: ESG reporting, employee volunteerism, veteran support focus, etc."
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="margin-top: 0.6rem; width: 100%; justify-content: center;"
+            >
+              Submit Sponsorship Commitment
+            </button>
+
+            <p class="helper" style="margin-top: 0.5rem;">
+              Once submitted, our team will send a formal commitment confirmation and invoice for
+              your finance team, along with documentation for your ESG/CSR records.
+            </p>
+          </form>
+
+          <!--
+           MAKE.COM + INVOICE / DONATION WORKFLOW (for your reference):
+
+           1. Trigger: Custom Webhook (same URL as used in the form action).
+           2. Steps:
+                • Store company, contact, email, role, tier, amount, notes.
+                • Create a row in Google Sheets / Airtable / your CRM.
+                • Generate an invoice via your billing tool (Stripe Invoicing, QuickBooks, etc.).
+                • Send an email to the contact with:
+                    - Thank-you + confirmation
+                    - PDF invoice or payment link
+                    - Sponsorship benefits summary
+           3. Optionally, notify your internal team in Slack/Teams.
+          -->
+        </div>
+
+        <!-- RIGHT: TRUST / 501c3 / CTA -->
+        <div>
+          <div class="panel" style="background: var(--cream);">
+            <h2>What Your Sponsorship Makes Possible</h2>
+            <p style="font-size: 0.95rem; color: #444;">
+              Every corporate partnership becomes a stabilizing force for single-parent families and
+              veterans who are one unexpected bill away from crisis. Your support funds:
+            </p>
+            <ul style="list-style: none; font-size: 0.9rem; margin-top: 0.5rem;">
+              <li>• Emergency rent and utility assistance</li>
+              <li>• Groceries, diapers, and essentials for children</li>
+              <li>• Transportation support for work, school, and medical care</li>
+              <li>• Targeted support for veterans reintegrating into civilian life</li>
+            </ul>
+            <p style="font-size: 0.9rem; color: #444; margin-top: 0.7rem;">
+              liveLIVE Foundation is a <strong>501(c)(3)</strong> organization. Sponsorships are
+              tax-deductible as charitable contributions to the extent allowed by law.
+            </p>
+          </div>
+
+          <div style="margin-top: 1.25rem;">
+            <h2>Ready to Talk Live?</h2>
+            <p style="font-size: 0.92rem; color: #444;">
+              Prefer a conversation first? Reach out directly and we’ll walk through the tiers,
+              impact areas, and the right fit for your organization.
+            </p>
+            <p style="font-size: 0.9rem; color: #444; margin-top: 0.35rem;">
+              📧 <strong>partnerships@livelivefoundation.org</strong><br />
+              📧 Corporate Sponsorship: <strong>jeff@livelive.today</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <img src="logo.png" alt="liveLIVE Foundation logo" style="width: 90px; margin-bottom: 0.5rem;" />
+      </div>
+      <p>
+        Partnering with liveLIVE Foundation means your organization is standing shoulder to shoulder
+        with single parents and veterans when life hits hardest. Together, we can transform ESG and
+        culture goals into real, measurable impact.
+      </p>
+      <a href="#partner" class="btn btn-primary">Become a Corporate Sponsor</a>
+
+      <p style="margin-top: 1rem; font-size: 0.85rem; color: rgba(255,255,255,0.85);">
+        <strong>For Corporate Sponsorship opportunities, contact:
+        <a href="mailto:jeff@livelive.today" style="color:#fff; text-decoration:underline;">
+          jeff@livelive.today
+        </a></strong>
+      </p>
+
+      <div class="footer-meta">
+        liveLIVE Foundation · 501(c)(3) nonprofit organization · All rights reserved.
+      </div>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
