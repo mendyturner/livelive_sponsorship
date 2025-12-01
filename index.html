@@ -632,16 +632,16 @@
   <input type="email" name="email" placeholder="Email" required />
   <input type="tel" name="phone" placeholder="Phone" />
   <select name="sponsorship_level">
-    <option value="platinum">Platinum - $25.000/option>
-    <option value="Gold">Gold - $10,000</option>
-    <option value="silver">Silver - $5,000</option>
-    <option value="community">Community - $2,500</option>
+    <option value="platinum">Platinum Partner- $25.000/option>
+    <option value="Gold">Gold Partner- $10,000</option>
+    <option value="silver">Silver Partner - $5,000</option>
+    <option value="community">Community Partner - $2,500</option>
 
 
   <button type="submit">Submit</button>
 </form>
 
-            action="https://hook.make.com/YOUR_WEBHOOK_ID_FOR_CORPORATE_SPONSORS"
+            action="https://hook.make.com/r5m7u7vb40eaqmnty8gt3gqdpxe8er0v@hook.us2.make.com"
             method="POST"
           >
             <input type="hidden" name="source" value="CorporateSponsorshipLandingPage" />
@@ -652,7 +652,7 @@
             </div>
 
             <div>
-              <label for="contact">Primary Contact Name</label>
+              <label for="contact">Your Name</label>
               <input id="contact" name="contact" type="text" required />
             </div>
 
@@ -790,93 +790,7 @@
   </footer>
 </div>
   <script>
-(function () {
-  // TODO: set these values from your HubSpot form
-  const HUBSPOT_PORTAL_ID = 'YOUR_HUBSPOT_PORTAL_ID';
-  const HUBSPOT_FORM_GUID = 'YOUR_HUBSPOT_FORM_GUID';
-
-  const form = document.getElementById('sponsorship-form');
-  if (!form) return;
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    // simple client-side validation (HTML required attributes still work)
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    const fd = new FormData(form);
-
-    // Split contact full name into first/last (best-effort)
-    const contactFull = (fd.get('contact') || '').trim();
-    const names = contactFull.split(/\s+/);
-    const firstName = names.shift() || '';
-    const lastName = names.join(' ') || '';
-
-    // Build HubSpot fields array
-    const hsFields = [
-      { name: 'company', value: fd.get('company') || '' },
-      { name: 'email', value: fd.get('email') || '' },
-      { name: 'firstname', value: firstName },
-      { name: 'lastname', value: lastName },
-      { name: 'jobtitle', value: fd.get('role') || '' },
-      // For custom properties in HubSpot, use their internal property names:
-      { name: 'sponsorship_tier', value: fd.get('tier') || '' },
-      { name: 'annual_amount', value: fd.get('amount') || '' },
-      { name: 'notes', value: fd.get('notes') || '' }
-    ];
-
-    const hsBody = {
-      fields: hsFields,
-      context: {
-        pageUri: window.location.href,
-        pageName: document.title
-      }
-    };
-
-    if (!HUBSPOT_PORTAL_ID || !HUBSPOT_FORM_GUID) {
-      console.error('HubSpot portal ID or form GUID not configured.');
-      alert('Form submission not configured. Please contact the site administrator.');
-      return;
-    }
-
-    const hsUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(HUBSPOT_PORTAL_ID)}/${encodeURIComponent(HUBSPOT_FORM_GUID)}`;
-
-    // Submit to HubSpot
-    fetch(hsUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(hsBody)
-    }).then(function (res) {
-      if (!res.ok) throw new Error('HubSpot submission failed: ' + res.status);
-      return res.json().catch(() => ({}));
-    }).then(function () {
-      // Optionally forward the same data to Make webhook (if data-make-webhook is set on the form)
-      const makeWebhook = form.getAttribute('data-make-webhook');
-      if (makeWebhook) {
-        // send form-encoded to make (Make usually accepts form POST)
-        fetch(makeWebhook, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(fd)
-        }).catch(function (err) {
-          console.warn('Make webhook failed:', err);
-        });
-      }
-
-      // On success — give the user feedback and reset
-      alert('Thanks — we received your commitment. We will follow up within one business day.');
-      form.reset();
-      // Optional: scroll to a confirmation area or show a success panel
-      window.location.hash = '#partner';
-    }).catch(function (err) {
-      console.error(err);
-      alert('There was an error submitting the form. Please try again or email sponsorships@liveLIVEFoundation.org');
-    });
-  });
-})();
+   
 </script>
 </body>
 </html>
