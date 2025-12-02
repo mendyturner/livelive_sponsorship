@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Partner with liveLIVE Foundation to support single-parent families and veterans through high-impact corporate sponsorship tiers that strengthen ESG, company culture, and employee engagement."
+    content="Partner with liveLIVE Foundation to support single-parent families and veterans through high-impact corporate sponsorship tiers that strengthen ESG, company culture, and employee engageme[...]"
   />
 
   <style>
@@ -621,13 +621,8 @@
             employee engagement. No payment is processed on this form.
           </p>
 
-          <!-- Replace action with your Make.com webhook URL -->
-         
-</form>
-           <input type="hidden" id="sponsorshipForm"
-           method="POST"
-           action="https://hook.make.com/r5m7u7vb40eaqmnty8gt3gqdpxe8er0v@hook.us2.make.com"
-          />
+          <!-- Form posts to server-side relay at /api/submit (server forwards to Make webhook). -->
+          <form id="sponsorshipForm" method="POST" action="/api/submit">
             <input type="hidden" name="source" value="CorporateSponsorshipLandingPage" />
 
             <div>
@@ -697,7 +692,7 @@
           <!--
            MAKE.COM + INVOICE / DONATION WORKFLOW (for your reference):
 
-           1. Trigger: Custom Webhook (same URL as used in the form action).
+           1. Trigger: Custom Webhook (server will forward to URL in MAKE_WEBHOOK_URL).
            2. Steps:
                 • Store company, contact, email, role, tier, amount, notes.
                 • Create a row in Google Sheets / Airtable / your CRM.
@@ -774,7 +769,57 @@
   </footer>
 </div>
   <script>
-   
-</script>
+    // Optional: AJAX submit with FormData to avoid page navigation and show a friendly message.
+    // This posts to the same origin /api/submit so CORS is not required.
+    //
+    // If you prefer the native form submit (page navigation), you can remove the JS below.
+    (function () {
+      const form = document.getElementById('sponsorshipForm');
+      if (!form) return;
+
+      form.addEventListener('submit', async function (e) {
+        // Prevent default navigation so we can show a friendly message inline.
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn && submitBtn.textContent;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
+        }
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+              // Note: do not set 'Content-Type' here; browser will set boundary for multipart/form-data
+            },
+          });
+
+          if (res.ok) {
+            // Expecting JSON { success: true }
+            const data = await res.json().catch(() => ({}));
+            if (data && data.success) {
+              alert('Submission received — thank you! We will follow up within one business day.');
+              form.reset();
+            } else {
+              alert('Submission received but server returned an unexpected response. Check server logs.');
+            }
+          } else {
+            const errText = await res.text().catch(() => res.statusText);
+            alert('Submission failed (status ' + res.status + '): ' + errText);
+          }
+        } catch (err) {
+          console.error('Submission error:', err);
+          alert('Submission error: ' + err.message + '. If you see network errors, make sure the server is running.');
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          }
+        }
+      });
+    })();
+  </script>
 </body>
-</html>
