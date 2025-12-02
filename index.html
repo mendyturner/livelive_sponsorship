@@ -621,7 +621,14 @@
             employee engagement. No payment is processed on this form.
           </p>
 
-          <<form id="sponsorshipForm" method="POST" action="#" data-endpoint="https://hook.us2.make.com/r5m7u7vb40eaqmnty8gt3gqdpxe8er0v@hook.us2.make.com">!-- Form posts to server-side relay at /api/submit (server forwards to Make webhook). -->
+          <!-- Form posts to server-side relay at /api/[...] or directly to the Make webhook.
+               NOTE: the webhook URL is client-visible while you test; remove or proxy it later. -->
+          <form
+            id="sponsorshipForm"
+            method="POST"
+            action="https://hook.us2.make.com/r5m7u7vb40eaqmnty8gt3gqdpxe8er0v"
+            data-endpoint="https://hook.us2.make.com/r5m7u7vb40eaqmnty8gt3gqdpxe8er0v"
+          >
             <input type="hidden" name="source" value="CorporateSponsorshipLandingPage" />
 
             <div>
@@ -769,9 +776,7 @@
 </div>
   <script>
     // Optional: AJAX submit with FormData to avoid page navigation and show a friendly message.
-    // This posts to the same origin /api/submit so CORS is not required.
-    //
-    // If you prefer the native form submit (page navigation), you can remove the JS below.
+    // This posts to the endpoint set in form.action or form.dataset.endpoint.
     (function () {
       const form = document.getElementById('sponsorshipForm');
       if (!form) return;
@@ -787,23 +792,29 @@
           submitBtn.textContent = 'Sending...';
         }
 
+        // prefer the explicit data-endpoint attribute (safer to control), fall back to action
+        const endpoint = (form.dataset && form.dataset.endpoint) ? form.dataset.endpoint : (form.action || window.location.href);
+
         try {
-          const res = await fetch(form.action, {
+          const res = await fetch(endpoint, {
             method: 'POST',
             body: new FormData(form),
-            headers: {
-              // Note: do not set 'Content-Type' here; browser will set boundary for multipart/form-data
-            },
           });
 
           if (res.ok) {
-            // Expecting JSON { success: true }
+            // Expecting JSON { success: true } or other success response
             const data = await res.json().catch(() => ({}));
             if (data && data.success) {
               alert('Submission received — thank you! We will follow up within one business day.');
               form.reset();
             } else {
-              alert('Submission received but server returned an unexpected response. Check server logs.');
+              // Many webhook endpoints don't return JSON. Consider showing a success for 2xx.
+              if (res.status >= 200 && res.status < 300) {
+                alert('Submission received — thank you! We will follow up within one business day.');
+                form.reset();
+              } else {
+                alert('Submission received but server returned an unexpected response. Check server logs.');
+              }
             }
           } else {
             const errText = await res.text().catch(() => res.statusText);
@@ -811,7 +822,7 @@
           }
         } catch (err) {
           console.error('Submission error:', err);
-          alert('Submission error: ' + err.message + '. If you see network errors, make sure the server is running.');
+          alert('Submission error: ' + (err.message || err) + '. If you see network errors, make sure the server is running and the endpoint is correct.');
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
@@ -822,3 +833,4 @@
     })();
   </script>
 </body>
+</html>
