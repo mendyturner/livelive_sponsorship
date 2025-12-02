@@ -2,10 +2,32 @@
 
 A landing page for corporate sponsorship inquiries for the liveLIVE Foundation, a 501(c)(3) nonprofit organization supporting single-parent families and veterans.
 
-## Server-Side Relay
+## Quick Start for GitHub Pages
 
-This repository includes a Node.js Express server that acts as a relay for form submissions. The server:
+If you're hosting on GitHub Pages (like `sponsorship.livelivefoundation.org`), you need to configure the Make.com webhook URL directly in the HTML:
 
+1. **Get your Make.com webhook URL**:
+   - Create a scenario in Make.com with a "Custom Webhook" trigger
+   - Copy the webhook URL (e.g., `https://hook.us2.make.com/abc123xyz`)
+
+2. **Update index.html**:
+   Find this line near line 628:
+   ```html
+   <form id="sponsorshipForm" method="POST" action="#" data-endpoint="https://hook.us2.make.com/REPLACE_WITH_YOUR_WEBHOOK_ID">
+   ```
+   Replace `REPLACE_WITH_YOUR_WEBHOOK_ID` with your actual Make.com webhook URL.
+
+3. **Commit and push** the changes to deploy.
+
+**Important**: GitHub Pages is static hosting and cannot run server-side code. The form submits directly to Make.com via JavaScript.
+
+---
+
+## Server-Side Relay (Optional)
+
+If you're hosting on a platform that supports Node.js (Heroku, Render, Vercel, etc.), you can use the included Express server for additional security and validation.
+
+The server:
 - Receives form submissions from the sponsorship page
 - Validates required fields (company, contact, email, tier)
 - Forwards data securely to the Make.com webhook
@@ -37,6 +59,11 @@ This repository includes a Node.js Express server that acts as a relay for form 
    ```
    MAKE_WEBHOOK_URL=https://hook.make.com/YOUR_WEBHOOK_ID
    PORT=3000
+   ```
+
+5. Update `index.html` to use the relay:
+   ```html
+   <form id="sponsorshipForm" method="POST" action="#" data-endpoint="/api/submit">
    ```
 
 ### Running Locally
@@ -80,19 +107,6 @@ When deploying to production:
 - **Body Size Limit**: 10KB maximum payload
 - **Input Validation**: Required field validation and email format checking
 - **No Exposed Secrets**: Make.com webhook URL is stored in environment variables, not in code
-
-### Using Without the Relay Server
-
-If you prefer to submit directly to Make.com without the relay server:
-
-1. Update the form action in `index.html` to your Make.com webhook URL:
-   ```html
-   <form id="sponsorshipForm" method="POST" action="https://hook.make.com/YOUR_WEBHOOK_ID">
-   ```
-
-2. Remove or update the client-side fetch handler in the `<script>` section
-
-**Note:** Direct submission may encounter CORS issues depending on your Make.com configuration.
 
 ## License
 

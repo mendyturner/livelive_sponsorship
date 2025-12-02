@@ -622,10 +622,11 @@
           </p>
 
           <!--
-            Form submits to /api/submit (same-origin relay) which forwards to Make.com.
-            Since both the page and the API are on the same origin, CORS is not an issue.
+            CONFIGURATION: Set your Make.com webhook URL below.
+            The form submits directly to Make.com when hosted on GitHub Pages.
+            If using the Express relay server, change the data-endpoint to "/api/submit".
           -->
-          <form id="sponsorshipForm" method="POST" action="/api/submit">
+          <form id="sponsorshipForm" method="POST" action="#" data-endpoint="https://hook.us2.make.com/REPLACE_WITH_YOUR_WEBHOOK_ID">
             <input type="hidden" name="source" value="CorporateSponsorshipLandingPage" />
 
             <div>
@@ -773,9 +774,12 @@
 </div>
   <script>
     /**
-     * Optional client-side fetch handler for the sponsorship form.
-     * Submits to /api/submit (same-origin relay) which forwards to Make.com.
-     * Since both the page and API are on the same origin, CORS is not an issue.
+     * Form submission handler for the sponsorship form.
+     * Submits to the endpoint specified in the form's data-endpoint attribute.
+     * 
+     * CONFIGURATION:
+     * - For GitHub Pages: Set data-endpoint to your Make.com webhook URL
+     * - For Express relay: Set data-endpoint to "/api/submit"
      */
     document.addEventListener('DOMContentLoaded', function() {
       var form = document.getElementById('sponsorshipForm');
@@ -783,6 +787,12 @@
         form.addEventListener('submit', function(e) {
           e.preventDefault();
           
+          var endpoint = form.getAttribute('data-endpoint');
+          if (!endpoint || endpoint.indexOf('REPLACE_WITH_YOUR_WEBHOOK_ID') !== -1) {
+            alert('Form not configured. Please set the Make.com webhook URL in the form data-endpoint attribute.');
+            return;
+          }
+
           var submitButton = form.querySelector('button[type="submit"]');
           var originalText = submitButton.textContent;
           submitButton.disabled = true;
@@ -794,7 +804,7 @@
             data[key] = value;
           });
 
-          fetch('/api/submit', {
+          fetch(endpoint, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -805,18 +815,21 @@
             if (!response.ok) {
               return response.json().then(function(err) {
                 throw new Error(err.error || 'Submission failed');
+              }).catch(function() {
+                throw new Error('Submission failed with status ' + response.status);
               });
             }
-            return response.json();
+            return response.json().catch(function() {
+              // Make.com may return non-JSON response on success
+              return { success: true };
+            });
           })
           .then(function(result) {
-            if (result.success) {
-              alert('Thank you for your sponsorship commitment! We will contact you within one business day.');
-              form.reset();
-            }
+            alert('Thank you for your sponsorship commitment! We will contact you within one business day.');
+            form.reset();
           })
           .catch(function(error) {
-            alert('There was an error submitting the form: ' + error.message + '. Please try again or contact us directly.');
+            alert('There was an error submitting the form: ' + error.message + '. Please try again or contact us directly at sponsorships@liveLIVEfoundation.org');
           })
           .finally(function() {
             submitButton.disabled = false;
