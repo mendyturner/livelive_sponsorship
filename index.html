@@ -621,13 +621,11 @@
             employee engagement. No payment is processed on this form.
           </p>
 
-          <!-- Replace action with your Make.com webhook URL -->
-         
-</form>
-           <input type="hidden" id="sponsorshipForm"
-           method="POST"
-           action="https://hook.make.com/r5m7u7vb40eaqmnty8gt3gqdpxe8er0v@hook.us2.make.com"
-          />
+          <!--
+            Form submits to /api/submit (same-origin relay) which forwards to Make.com.
+            Since both the page and the API are on the same origin, CORS is not an issue.
+          -->
+          <form id="sponsorshipForm" method="POST" action="/api/submit">
             <input type="hidden" name="source" value="CorporateSponsorshipLandingPage" />
 
             <div>
@@ -774,7 +772,59 @@
   </footer>
 </div>
   <script>
-   
-</script>
+    /**
+     * Optional client-side fetch handler for the sponsorship form.
+     * Submits to /api/submit (same-origin relay) which forwards to Make.com.
+     * Since both the page and API are on the same origin, CORS is not an issue.
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('sponsorshipForm');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          var submitButton = form.querySelector('button[type="submit"]');
+          var originalText = submitButton.textContent;
+          submitButton.disabled = true;
+          submitButton.textContent = 'Submitting...';
+
+          var formData = new FormData(form);
+          var data = {};
+          formData.forEach(function(value, key) {
+            data[key] = value;
+          });
+
+          fetch('/api/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(function(response) {
+            if (!response.ok) {
+              return response.json().then(function(err) {
+                throw new Error(err.error || 'Submission failed');
+              });
+            }
+            return response.json();
+          })
+          .then(function(result) {
+            if (result.success) {
+              alert('Thank you for your sponsorship commitment! We will contact you within one business day.');
+              form.reset();
+            }
+          })
+          .catch(function(error) {
+            alert('There was an error submitting the form: ' + error.message + '. Please try again or contact us directly.');
+          })
+          .finally(function() {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+          });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
